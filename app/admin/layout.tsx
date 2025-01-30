@@ -39,14 +39,12 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
         <div className="flex h-screen bg-gray-100">
             {/* Sidebar */}
             <aside
-                className={`${
-                    isSidebarOpen ? "w-64" : "w-16"
-                } bg-gray-900 text-white flex flex-col transition-all duration-300`}
+                className={`${isSidebarOpen ? "w-64" : "w-16"} bg-gray-900 text-white flex flex-col transition-all duration-300`}
             >
                 <div className="p-5 flex items-center justify-between">
-          <span className={`text-xl font-bold ${isSidebarOpen ? "block" : "hidden"}`}>
-            Hotel Admin
-          </span>
+                    <span className={`text-xl font-bold ${isSidebarOpen ? "block" : "hidden"}`}>
+                        Hotel Admin
+                    </span>
                     <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-gray-400">
                         <Menu className="w-6 h-6" />
                     </button>
@@ -57,9 +55,7 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
                         <Link
                             key={item.name}
                             href={item.href}
-                            className={`flex items-center gap-3 px-4 py-2 rounded-md transition ${
-                                pathname.startsWith(item.href) ? "bg-gray-700" : "hover:bg-gray-800"
-                            }`}
+                            className={`flex items-center gap-3 px-4 py-2 rounded-md transition ${pathname.startsWith(item.href) ? "bg-gray-700" : "hover:bg-gray-800"}`}
                         >
                             <item.icon className="w-5 h-5" />
                             <span className={`${isSidebarOpen ? "block" : "hidden"}`}>{item.name}</span>
