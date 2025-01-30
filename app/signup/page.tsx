@@ -1,21 +1,60 @@
- 'use client' // pages/signing.js
+'use client' // pages/signing.js
 
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
 export default function SignInPage() {
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const [confirmPassword, setConfirmPassword] = React.useState('');
-    const [agreeTerms, setAgreeTerms] = React.useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
+    const [agreeTerms, setAgreeTerms] = useState(false);
+
+    const handleSubmit = async (e: { preventDefault: () => void; }) => {
+        e.preventDefault();
+
+        if (!agreeTerms) {
+            alert('You must agree to the terms and conditions.');
+            return;
+        }
+
+        const userData = { name, email, password, agreeTerms };
+
+        try {
+            const response = await axios.post('http://localhost:8000/api/admin/register', userData, {
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            if (response.status === 200) {
+                alert('Successfully submitted!');
+                // Optionally, redirect the user or perform other actions
+            } else {
+                alert('Failed to submit. Please try again later.');
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            alert('Error submitting form. Please try again later.');
+        }
+    };
 
     return (
         <div className="bg-gray-100 flex items-center justify-center min-h-screen">
             <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
                 <h2 className="text-3xl font-semibold text-center text-gray-700 mb-6">Sign Up</h2>
 
-                <form >
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-6">
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Enter your name"
+                            required
+                        />
+                    </div>
                     <div className="mb-4">
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-600">Email</label>
                         <input
                             type="email"
                             id="email"
@@ -29,7 +68,6 @@ export default function SignInPage() {
                     </div>
 
                     <div className="mb-4">
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-600">Password</label>
                         <input
                             type="password"
                             id="password"
@@ -38,20 +76,6 @@ export default function SignInPage() {
                             onChange={(e) => setPassword(e.target.value)}
                             className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter your password"
-                            required
-                        />
-                    </div>
-
-                    <div className="mb-6">
-                        <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-600">Confirm Password</label>
-                        <input
-                            type="password"
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Confirm your password"
                             required
                         />
                     </div>

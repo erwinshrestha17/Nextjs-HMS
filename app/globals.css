@@ -19,3 +19,18 @@
 /*  background: var(--background);*/
 /*  font-family: Arial, Helvetica, sans-serif;*/
 /*}*/
+@media (max-width: 768px) {
+    /* For medium screen sizes (table becomes scrollable) */
+    .table-auto {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 480px) {
+    /* For very small screens (stack columns or add more padding/margin) */
+    .table-auto th, .table-auto td {
+        padding: 10px;
+    }
+}

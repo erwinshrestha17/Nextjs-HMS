@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { EditIcon, TrashIcon } from "lucide-react";
 import { CheckCircleIcon, XCircleIcon, WrenchIcon } from "lucide-react";
-import debounce from "lodash.debounce"; // Add lodash.debounce for debouncing search
+import debounce from "lodash.debounce";
+import Pagination from "@/app/components/Pagination/Pagination"; // Add lodash.debounce for debouncing search
 
 const initialRooms = [
     { "id": 1, "number": "101", "type": "Single", "status": "Available", "floor": 1 },
@@ -161,6 +162,17 @@ const Rooms = () => {
                 </select>
 
                 <button
+                    onClick={() => {
+                        setSearch("");
+                        setRoomStatus("");
+                        setRoomType("");
+                    }}
+                    className="p-2 bg-red-500 text-white rounded-md"
+                >
+                    Clear Filters
+                </button>
+
+                <button
                     onClick={() => setEditMode(false)}
                     className="px-4 py-2 bg-blue-500 text-white rounded-md"
                 >
@@ -250,28 +262,37 @@ const Rooms = () => {
                 </table>
             </div>
 
-
-
             {/* Pagination */}
-            <div className="flex justify-between items-center mt-6">
-                <button
-                    onClick={prevPage}
-                    disabled={currentPage === 1}
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
-                >
-                    Prev
-                </button>
-                <div>
-                    Page {currentPage} of {totalPages}
-                </div>
-                <button
-                    onClick={nextPage}
-                    disabled={currentPage === totalPages}
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
-                >
-                    Next
-                </button>
-            </div>
+            <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                nextPage={nextPage}
+                prevPage={prevPage}
+            />
+
+
+
+
+            {/*/!* Pagination *!/*/}
+            {/*<div className="flex justify-between items-center mt-6">*/}
+            {/*    <button*/}
+            {/*        onClick={prevPage}*/}
+            {/*        disabled={currentPage === 1}*/}
+            {/*        className="px-4 py-2 bg-blue-500 text-white rounded-md"*/}
+            {/*    >*/}
+            {/*        Prev*/}
+            {/*    </button>*/}
+            {/*    <div>*/}
+            {/*        Page {currentPage} of {totalPages}*/}
+            {/*    </div>*/}
+            {/*    <button*/}
+            {/*        onClick={nextPage}*/}
+            {/*        disabled={currentPage === totalPages}*/}
+            {/*        className="px-4 py-2 bg-blue-500 text-white rounded-md"*/}
+            {/*    >*/}
+            {/*        Next*/}
+            {/*    </button>*/}
+            {/*</div>*/}
 
             {/* Edit Modal */}
             {editMode && (
