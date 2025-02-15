@@ -4,13 +4,9 @@ import React, { useState } from "react";
 import axios from "axios";
 
 export default function SignInPage() {
-    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [address, setAddress] = useState('');
-    const [city, setCity] = useState('');
-    const [country, setCountry] = useState('');
-    const [phone, setPhone] = useState('');
+    const [name, setName] = useState('');
     const [agreeTerms, setAgreeTerms] = useState(false);
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
@@ -21,17 +17,15 @@ export default function SignInPage() {
             return;
         }
 
-        if (!name || !email || !password || !address || !city || !country || !phone) {
-            alert('Please fill out all required fields.');
-            return;
-        }
-
-        const userData = { name, email, password, address, city, country, phone, agreeTerms };
+        const userData = { name, email, password, agreeTerms };
 
         try {
-            const response = await axios.post('http://localhost:8000/api/customer/register', userData, {
+            const response = await axios.post('http://localhost:8000/api/admin/register', userData, {
                 headers: { 'Content-Type': 'application/json' }
             });
+            // const response = await axios.post('http://localhost:8080/register', userData, {
+            //     headers: { 'Content-Type': 'application/json' }
+            // });
 
             if (response.status === 200) {
                 alert('Successfully submitted!');
@@ -89,58 +83,6 @@ export default function SignInPage() {
                         />
                     </div>
 
-                    <div className="mb-4">
-                        <input
-                            type="text"
-                            id="address"
-                            name="address"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                            className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Enter your address"
-                            required
-                        />
-                    </div>
-
-                    <div className="mb-4">
-                        <input
-                            type="text"
-                            id="city"
-                            name="city"
-                            value={city}
-                            onChange={(e) => setCity(e.target.value)}
-                            className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Enter your city"
-                            required
-                        />
-                    </div>
-
-                    <div className="mb-4">
-                        <input
-                            type="text"
-                            id="country"
-                            name="country"
-                            value={country}
-                            onChange={(e) => setCountry(e.target.value)}
-                            className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Enter your country"
-                            required
-                        />
-                    </div>
-
-                    <div className="mb-4">
-                        <input
-                            type="text"
-                            id="phone"
-                            name="phone"
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                            className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Enter your phone number"
-                            required
-                        />
-                    </div>
-
                     <div className="flex items-center justify-between mb-6">
                         <div className="flex items-center">
                             <input
@@ -158,7 +100,7 @@ export default function SignInPage() {
                 </form>
 
                 <div className="mt-6 text-center">
-                    <p className="text-sm text-gray-600">Already have an account? <a href="/login" className="text-blue-500 hover:text-blue-700">Login</a></p>
+                    <p className="text-sm text-gray-600">Already have an account? <a href="/admin/login" className="text-blue-500 hover:text-blue-700">Login</a></p>
                 </div>
             </div>
         </div>

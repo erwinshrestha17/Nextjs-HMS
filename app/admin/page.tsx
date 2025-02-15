@@ -1,12 +1,11 @@
+import {redirect} from "next/navigation";
 
 
-const Dashboard = () => {
+const Page = () => {
     return (
-
-         <>
-         </>
-
-    );
+        <>
+        </>
+    )
 };
 
-export default Dashboard;
+export default Page;

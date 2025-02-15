@@ -4,7 +4,8 @@ import React, { useState, useEffect } from "react";
 import { EditIcon, TrashIcon } from "lucide-react";
 import { CheckCircleIcon, XCircleIcon, WrenchIcon } from "lucide-react";
 import debounce from "lodash.debounce";
-import Pagination from "@/app/components/Pagination/Pagination"; // Add lodash.debounce for debouncing search
+import Pagination from "@/app/components/Pagination/Pagination";
+import axios from "axios"; // Add lodash.debounce for debouncing search
 
 const initialRooms = [
     { "id": 1, "number": "101", "type": "Single", "status": "Available", "floor": 1 },
@@ -34,6 +35,7 @@ const initialRooms = [
     { "id": 19, "number": "701", "type": "Penthouse", "status": "Available", "floor": 7 },
     { "id": 20, "number": "702", "type": "Super Deluxe", "status": "Occupied", "floor": 7 }
 ];
+// Fetch room data from backend using axios
 
 const usePagination = (items: any[], itemsPerPage: number) => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -53,6 +55,8 @@ const usePagination = (items: any[], itemsPerPage: number) => {
 
 const Rooms = () => {
     const [rooms, setRooms] = useState(initialRooms);
+
+    //const [rooms, setRooms] = useState<Room[]>([]);
     const [search, setSearch] = useState("");
     const [editMode, setEditMode] = useState(false);
     const [selectedRoom, setSelectedRoom] = useState<any>(null);
@@ -67,6 +71,28 @@ const Rooms = () => {
     const handleSearch = debounce((value: string) => {
         setDebouncedSearch(value);
     }, 500);
+
+    useEffect(() => {
+        const fetchRooms = async () => {
+            try {
+                const response = await axios.get("https://your-backend-api.com/rooms"); // Replace with your API endpoint
+                setRooms(response.data); // Set rooms state with the fetched data
+            } catch (error) {
+                console.error("Error fetching rooms data", error);
+            }
+        };
+
+        fetchRooms()
+            .then(() => {
+                console.log("Rooms data fetched successfully.");
+                // You can add any further logic here that you want to execute after the data is fetched
+            })
+            .catch((error) => {
+                console.error("Error in fetching rooms data", error);
+            });
+    }, []);
+
+
 
     useEffect(() => {
         setSearch(debouncedSearch);
@@ -125,7 +151,9 @@ const Rooms = () => {
 
     return (
         <div>
-            <h2 className="text-2xl font-semibold mb-6">Rooms</h2>
+            <h2 className="text-3xl font-semibold mb-6 mt-10 text-gray-800 flex items-center gap-2">
+                Rooms Management
+            </h2>
 
             {/* Search and Filters */}
             <div className="flex gap-4 mb-4">
@@ -269,30 +297,6 @@ const Rooms = () => {
                 nextPage={nextPage}
                 prevPage={prevPage}
             />
-
-
-
-
-            {/*/!* Pagination *!/*/}
-            {/*<div className="flex justify-between items-center mt-6">*/}
-            {/*    <button*/}
-            {/*        onClick={prevPage}*/}
-            {/*        disabled={currentPage === 1}*/}
-            {/*        className="px-4 py-2 bg-blue-500 text-white rounded-md"*/}
-            {/*    >*/}
-            {/*        Prev*/}
-            {/*    </button>*/}
-            {/*    <div>*/}
-            {/*        Page {currentPage} of {totalPages}*/}
-            {/*    </div>*/}
-            {/*    <button*/}
-            {/*        onClick={nextPage}*/}
-            {/*        disabled={currentPage === totalPages}*/}
-            {/*        className="px-4 py-2 bg-blue-500 text-white rounded-md"*/}
-            {/*    >*/}
-            {/*        Next*/}
-            {/*    </button>*/}
-            {/*</div>*/}
 
             {/* Edit Modal */}
             {editMode && (

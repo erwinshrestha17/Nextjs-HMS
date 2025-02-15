@@ -15,13 +15,13 @@ interface Booking {
     paymentStatus: string;
     specialRequests: string;
 }
-
-// Dummy data for testing
-const dummyBookings: Booking[] = [
-    { id: 1, customerName: "John Doe", email: "john.doe@example.com", phone: "123-456-7890", checkInDate: "2025-02-10", checkOutDate: "2025-02-12", roomType: "Double", status: "Confirmed", paymentStatus: "Paid", specialRequests: "Vegetarian meal" },
-    { id: 2, customerName: "Jane Smith", email: "jane.smith@example.com", phone: "987-654-3210", checkInDate: "2025-02-15", checkOutDate: "2025-02-18", roomType: "Suite", status: "Pending", paymentStatus: "Unpaid", specialRequests: "Late check-in" },
-    { id: 3, customerName: "Alice Brown", email: "alice.brown@example.com", phone: "456-789-0123", checkInDate: "2025-03-01", checkOutDate: "2025-03-05", roomType: "Single", status: "Cancelled", paymentStatus: "Refunded", specialRequests: "Window view" },
-];
+//
+// // Dummy data for testing
+// const dummyBookings: Booking[] = [
+//     { id: 1, customerName: "John Doe", email: "john.doe@example.com", phone: "123-456-7890", checkInDate: "2025-02-10", checkOutDate: "2025-02-12", roomType: "Double", status: "Confirmed", paymentStatus: "Paid", specialRequests: "Vegetarian meal" },
+//     { id: 2, customerName: "Jane Smith", email: "jane.smith@example.com", phone: "987-654-3210", checkInDate: "2025-02-15", checkOutDate: "2025-02-18", roomType: "Suite", status: "Pending", paymentStatus: "Unpaid", specialRequests: "Late check-in" },
+//     { id: 3, customerName: "Alice Brown", email: "alice.brown@example.com", phone: "456-789-0123", checkInDate: "2025-03-01", checkOutDate: "2025-03-05", roomType: "Single", status: "Cancelled", paymentStatus: "Refunded", specialRequests: "Window view" },
+// ];
 
 const fetchBookings = async (): Promise<Booking[]> => {
     try {
@@ -81,9 +81,9 @@ export default function Page() {
 
     return (
         <div className="bg-gray-100 min-h-screen p-6">
-            <h1 className="text-3xl font-bold text-gray-700 mb-6">Admin Booking Panel</h1>
-
-            {/* Filters */}
+            <h2 className="text-3xl font-semibold mb-6 mt-10 text-gray-800 flex items-center gap-2">
+                Booking Management
+            </h2>
             {/* Filters */}
             <div className="flex gap-4 mb-4">
                 <input

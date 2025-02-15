@@ -18,7 +18,7 @@ export default function LoginPage() {
     const handleLogin = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8000/api/admin/login', { email, password });
+            const response = await axios.post('http://localhost:8000/api/customer/login', { email, password });
             console.log('Login successful:', response.data);
             router.push('/admin'); // Redirect to dashboard or another page
         } catch (err) {
@@ -80,6 +80,7 @@ export default function LoginPage() {
                         </div>
                         <a href="#" className="text-sm text-blue-500 hover:text-blue-700">Forgot password?</a>
                     </div>
+
                     <button type="submit" className="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition duration-300">
                         Login
                     </button>
